@@ -16783,33 +16783,26 @@ local PullLeverToggle = v16.Race:AddToggle("PullLeverToggle", {
 
 PullLeverToggle:OnChanged(function(state)
     _G.PullLeverEnabled = state
-
     if state then
-        spawn(function()
-            while _G.PullLeverEnabled do
-                PullLever()
-                wait(1) -- Prevents excessive execution
-            end
-        end)
+        PullLever()
     end
 end)
 
 function PullLever()
-    if not _G.PullLeverEnabled then return end  -- Toggle check
-
-    repeat
-        wait()
+    while _G.PullLeverEnabled do
         if (L_30_.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).Magnitude > 2000 then
             TweenTemple()
         end
-    until (L_30_.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).Magnitude <= 2000;
 
-    TP(game:GetService("Workspace").Map["Temple of Time"].Lever.Part.CFrame)
+        TP(game:GetService("Workspace").Map["Temple of Time"].Lever.Part.CFrame)
 
-    for L_156_forvar0, L_157_forvar1 in pairs(game:GetService("Workspace").Map["Temple of Time"].Lever:GetDescendants()) do
-        if L_157_forvar1.Name == "ProximityPrompt" then
-            fireproximityprompt(L_157_forvar1)
+        for _, v in pairs(game:GetService("Workspace").Map["Temple of Time"].Lever:GetDescendants()) do
+            if v:IsA("ProximityPrompt") then
+                fireproximityprompt(v)
+            end
         end
+
+        wait(1) -- Prevent spamming
     end
 end
 
@@ -18928,6 +18921,25 @@ spawn(function()
     end
 end)
 
+-- TP Ancient
+local AncientClockToggle = v16.Race:AddToggle("AncientClockToggle", {
+    Title = "Ancient Clock",
+    Default = false
+})
+
+AncientClockToggle:OnChanged(function(state)
+    _G.AncientClockEnabled = state
+end)
+
+function AncientClock()
+    if not _G.AncientClockEnabled then return end -- Check toggle state
+
+    for L_158_forvar0, L_159_forvar1 in next, workspace:GetDescendants() do
+        if L_159_forvar1.Name == "Prompt" then
+            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = L_159_forvar1.CFrame
+        end
+    end
+end
 
 
 v14:Notify({
