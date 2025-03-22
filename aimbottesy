@@ -18889,6 +18889,35 @@ spawn(function()
     end
 end)
 
+-- Automatic Lever Pull
+local PullLeverToggle = v16.Race:AddToggle("PullLeverToggle", {
+    Title = "Auto Pull Lever",
+    Default = false
+})
+
+PullLeverToggle:OnChanged(function(state)
+    _G.PullLeverEnabled = state
+end)
+
+function PullLever()
+    if not _G.PullLeverEnabled then return end  -- Toggle check
+
+    repeat
+        wait()
+        if (L_30_.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).Magnitude > 2000 then
+            TweenTemple()
+        end
+    until (L_30_.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).Magnitude <= 2000;
+
+    TP(game:GetService("Workspace").Map["Temple of Time"].Lever.Part.CFrame)
+
+    for L_156_forvar0, L_157_forvar1 in pairs(game:GetService("Workspace").Map["Temple of Time"].Lever:GetDescendants()) do
+        if L_157_forvar1.Name == "ProximityPrompt" then
+            fireproximityprompt(L_157_forvar1)
+        end
+    end
+end
+
 
 
 v14:Notify({
