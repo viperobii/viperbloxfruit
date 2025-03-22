@@ -16777,12 +16777,21 @@ end);
 
 -- Automatic Lever Pull
 local PullLeverToggle = v16.Race:AddToggle("PullLeverToggle", {
-    Title = "Auto Pull Lever",
+    Title = "Pull Lever",
     Default = false
 })
 
 PullLeverToggle:OnChanged(function(state)
     _G.PullLeverEnabled = state
+
+    if state then
+        spawn(function()
+            while _G.PullLeverEnabled do
+                PullLever()
+                wait(1) -- Prevents excessive execution
+            end
+        end)
+    end
 end)
 
 function PullLever()
