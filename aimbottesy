@@ -18856,43 +18856,38 @@ v178:OnChanged(function(state)
 end)
 
 -- Aimbot Skills
-local v179 = v16.Player:AddToggle("AimbotToggle", {
-    Title = "Aimbot Skills", 
+local AimbotToggle = v16.Player:AddToggle("ToggleAimbot", {
+    Title = "Aimbot Skills",
+    Description = "Toggle Aimbot functionality using Z, X, C, V, F keys.",
     Default = false
 })
 
-AimbotToggle:OnChanged(function(state)
-    _G.UseSkill = state
-
-    spawn(function()
-        local gg = getrawmetatable(game)
-        local old = gg.__namecall
-        setreadonly(gg, false)
-
-        gg.__namecall = newcclosure(function(...)
-            local method = getnamecallmethod()
-            local args = { ... }
-
-            if tostring(method) == "FireServer" then
-                if tostring(args[1]) == "RemoteEvent" then
-                    if tostring(args[2]) ~= "true" and tostring(args[2]) ~= "false" then
-                        if _G.UseSkill then
-                            if type(args[2]) == "vector" then
-                                args[2] = PositionSkillMasteryDevilFruit
-                            else
-                                args[2] = CFrame.new(PositionSkillMasteryDevilFruit)
-                            end
-                            return old(unpack(args))
-                        end
-                    end
+AimbotToggle:OnChanged(function(isToggled)
+    if isToggled then
+        -- Enable Aimbot functionality
+        local function onKeyPress(input)
+            if input.UserInputType == Enum.UserInputType.Keyboard then
+                if input.KeyCode == Enum.KeyCode.Z then
+                    -- Activate Aimbot skill 1
+                elseif input.KeyCode == Enum.KeyCode.X then
+                    -- Activate Aimbot skill 2
+                elseif input.KeyCode == Enum.KeyCode.C then
+                    -- Activate Aimbot skill 3
+                elseif input.KeyCode == Enum.KeyCode.V then
+                    -- Activate Aimbot skill 4
+                elseif input.KeyCode == Enum.KeyCode.F then
+                    -- Activate Aimbot skill 5
                 end
             end
+        end
 
-            return old(...)
-        end)
-    end)
+        -- Connect the key press event
+        game:GetService("User InputService").InputBegan:Connect(onKeyPress)
+    else
+        -- Disable Aimbot functionality
+        -- Optionally disconnect the key press event if needed
+    end
 end)
-
 
 v14:Notify({
 
