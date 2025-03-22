@@ -16306,8 +16306,6 @@ function PullLever()
     end
 end
 
-});
-
 v16.Race:AddButton({
 
 Title = "Teleport To Ancient One",
