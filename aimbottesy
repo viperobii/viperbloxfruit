@@ -18857,43 +18857,38 @@ end)
 
 -- Aimbot Skills
 local v179 = v16.Player:AddToggle("AimbotToggle", {
-    Title = "Skill Aimbot", 
-    Description = "Auto aims fruit, sword, and gun skills (Z, X, C, V, F)",
+    Title = "Aimbot Skills", 
     Default = false
 })
 
 AimbotToggle:OnChanged(function(state)
-    _G.UseSkillAimbot = state
+    _G.UseSkill = state
 
     spawn(function()
-        local mt = getrawmetatable(game)
-        local old = mt.__namecall
-        setreadonly(mt, false)
+        local gg = getrawmetatable(game)
+        local old = gg.__namecall
+        setreadonly(gg, false)
 
-        mt.__namecall = newcclosure(function(self, ...)
+        gg.__namecall = newcclosure(function(...)
             local method = getnamecallmethod()
             local args = { ... }
 
-            if _G.UseSkillAimbot and method == "FireServer" then
-                local remoteName = tostring(args[1])
-                local target = args[2]
-
-                -- Check if it's a skill-related remote event (Z, X, C, V, F)
-                if remoteName == "RemoteEvent" then
-                    if target and (target:IsA("Player") or (target:IsA("Model") and target:FindFirstChild("Humanoid"))) then
-                        -- Set the skill target position
-                        if typeof(target) == "Vector3" then
-                            args[2] = target.Position
-                        else
-                            args[2] = target.HumanoidRootPart.CFrame
+            if tostring(method) == "FireServer" then
+                if tostring(args[1]) == "RemoteEvent" then
+                    if tostring(args[2]) ~= "true" and tostring(args[2]) ~= "false" then
+                        if _G.UseSkill then
+                            if type(args[2]) == "vector" then
+                                args[2] = PositionSkillMasteryDevilFruit
+                            else
+                                args[2] = CFrame.new(PositionSkillMasteryDevilFruit)
+                            end
+                            return old(unpack(args))
                         end
-                    else
-                        return old(self, ...)
                     end
                 end
             end
 
-            return old(self, unpack(args))
+            return old(...)
         end)
     end)
 end)
