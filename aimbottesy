@@ -16282,29 +16282,20 @@ end
 });
 
 v16.Race:AddButton({
-    Title = "Teleport Pull Lever",
-    Description = "Pull it Yourself",
-    Callback = function()
-        PullLever()
-    end
-})
 
-function PullLever()
-    repeat
-        wait()
-        if (L_30_.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).Magnitude > 2000 then
-            TweenTemple()
-        end
-    until (L_30_.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).Magnitude <= 2000;
-    
-    TP(game:GetService("Workspace").Map["Temple of Time"].Lever.Part.CFrame)
+Title = "Teleport To Pull Lever",
 
-    for L_156_forvar0, L_157_forvar1 in pairs(game:GetService("Workspace").Map["Temple of Time"].Lever:GetDescendants()) do
-        if L_157_forvar1.Name == "ProximityPrompt" then
-            fireproximityprompt(L_157_forvar1)
-        end
-    end
+Description = "Pull It Your Self",
+
+Callback = function()
+
+game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("requestEntrance", Vector3.new(28286.35546875, 14895.3017578125, 102.62469482421875));
+
+Tween2(CFrame.new(28575.181640625, 14936.6279296875, 72.31636810302734));
+
 end
+
+});
 
 v16.Race:AddButton({
 
