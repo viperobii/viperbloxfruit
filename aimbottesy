@@ -44,7 +44,7 @@ Name = shared.LoaderTitle or "A Loader",
 
 Colors = shared.LoaderColors or {
 
-Main = Color3.fromRGB(0, 0, 0),
+Main = Color3.fromRGB(10, 10, 50),
 
 Topic = Color3.fromRGB(200, 200, 200),
 
@@ -52,7 +52,7 @@ Title = Color3.fromRGB(255, 255, 255),
 
 LoaderBackground = Color3.fromRGB(40, 40, 40),
 
-LoaderSplash = Color3.fromRGB(3, 252, 3)
+LoaderSplash = Color3.fromRGB(252, 3, 3)
 
 }
 
@@ -206,7 +206,7 @@ Parent = v6,
 
 BackgroundTransparency = 1,
 
-Text = "By : Viper",
+Text = "Viper Premium Hub",
 
 Position = UDim2.new(0, 75, 0, 10),
 
@@ -630,7 +630,7 @@ SubTitle = "by Viper_",
 
 TabWidth = 160,
 
-Theme = "Dark",
+Theme = "Amethyst",
 
 Acrylic = false,
 
@@ -18890,22 +18890,6 @@ spawn(function()
     end
 end)
 
--- Dash no cd
-local DashEnabled = false -- Toggle state
-
-local DashTab = v16.Player:AddToggle("DashToggle", {Title = "Dash No Cooldown", Default = false}, function(state)
-    DashEnabled = state
-end)
-
-game:GetService("UserInputService").InputBegan:Connect(function(input, gameProcessed)
-    if gameProcessed then return end
-    if DashEnabled and input.KeyCode == Enum.KeyCode.Q then -- Change key if needed
-        local char = game.Players.LocalPlayer.Character
-        if char and char:FindFirstChild("HumanoidRootPart") then
-            char.HumanoidRootPart.Velocity = char.HumanoidRootPart.CFrame.LookVector * 100 -- Adjust speed
-        end
-    end
-end)
 
 
 v14:Notify({
