@@ -645,63 +645,54 @@ local v16 = {
 Home = v15:AddTab({
 
 Title = "Information & Updates"
-Icon = "book"
 
 }),
 
 Main = v15:AddTab({
 
 Title = "Farms"
-Icon = "house"
 
 }),
 
 Sea = v15:AddTab({
 
 Title = "Sea Events & Island Events"
-Icon = "tree-palm"
 
 }),
 
 ITM = v15:AddTab({
 
 Title = "Buy Items"
-Icon = "shopping-cart"
 
 }),
 
 Setting = v15:AddTab({
 
 Title = "Settings"
-Icon = "settings"
 
 }),
 
 Status = v15:AddTab({
 
 Title = "Webhook Server"
-Icon = "database"
 
 }),
 
 Stats = v15:AddTab({
 
 Title = "Stats"
-Icon = "chart-no-axes-combined"
 
 }),
 
 Player = v15:AddTab({
 
 Title = "Combat Players"
-Icon = "user-cog"
 
 }),
 
 Teleport = v15:AddTab({
 
 Title = "Teleport Sea"
-Icon = "waves"
 
 }),
 
@@ -714,35 +705,30 @@ Title = "Fake Fun Level"
 Fruit = v15:AddTab({
 
 Title = "ESP & Fruits"
-Icon = "eye"
 
 }),
 
 Raid = v15:AddTab({
 
 Title = "Raids"
-Icon = "user-round-check"
 
 }),
 
 Race = v15:AddTab({
 
 Title = "Race V4"
-Icon = "moon"
 
 }),
 
 Shop = v15:AddTab({
 
 Title = "Shop"
-Icon = "shopping-cart"
 
 }),
 
 Misc = v15:AddTab({
 
 Title = "Miscellaneous"
-Icon = "shield-alert"
 
 })
 
@@ -18904,6 +18890,22 @@ spawn(function()
     end
 end)
 
+-- Dash no cd
+local DashEnabled = false -- Toggle state
+
+local DashTab = v16.Player:AddToggle("DashToggle", {Title = "Dash No Cooldown", Default = false}, function(state)
+    DashEnabled = state
+end)
+
+game:GetService("UserInputService").InputBegan:Connect(function(input, gameProcessed)
+    if gameProcessed then return end
+    if DashEnabled and input.KeyCode == Enum.KeyCode.Q then -- Change key if needed
+        local char = game.Players.LocalPlayer.Character
+        if char and char:FindFirstChild("HumanoidRootPart") then
+            char.HumanoidRootPart.Velocity = char.HumanoidRootPart.CFrame.LookVector * 100 -- Adjust speed
+        end
+    end
+end)
 
 
 v14:Notify({
