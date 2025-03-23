@@ -585,7 +585,7 @@ local tracer = nil
 local distanceText = nil
 local highlight = nil
 
-local Luna = loadstring(game:HttpGet("https://paste.ee/r/WSCKThwW", true))()
+local Luna = loadstring(game:HttpGet("https://github.com/dawid-scripts/Fluent/releases/latest/download/main.lua"))()
 
 local getgenv = getgenv
 getgenv().Multiplier = 0.5
@@ -607,18 +607,13 @@ local function startCFrameSpeed()
     end)
 end
 
-local Window = Luna:CreateWindow({
-    Name = "The BillDev Hub (Blue Lock Rivals)",
-    Subtitle = "by Galaxy/Jah/Whohurtyoudear",
-    LogoID = "75237883871377",
-    LoadingEnabled = true,
-    LoadingTitle = "TheBillDevHub (Blue Lock Rivals)",
-    LoadingSubtitle = "by Galaxy/Jah/Whohurtyoudear",
-    ConfigSettings = {
-        RootFolder = "BillDevHub", 
-        ConfigFolder = "Configs", 
-        AutoLoadConfig = true 
-    },
+local Window = Fluent:CreateWindow({
+    Title = "Viper Hub Premium Key System",
+    SubTitle = "by : Viper_",
+    TabWidth = 160,
+    Size = UDim2.new(0, 500, 0, 300),
+    Acrylic = true,
+    Theme = "Rose"
 })
 
 Window:CreateHomeTab({
