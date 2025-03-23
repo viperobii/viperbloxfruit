@@ -645,54 +645,63 @@ local v16 = {
 Home = v15:AddTab({
 
 Title = "Information & Updates"
+Icon = "book"
 
 }),
 
 Main = v15:AddTab({
 
-Title = "Farms & Farm Settings"
+Title = "Farms"
+Icon = "house"
 
 }),
 
 Sea = v15:AddTab({
 
 Title = "Sea Events & Island Events"
+Icon = "tree-palm"
 
 }),
 
 ITM = v15:AddTab({
 
 Title = "Buy Items"
+Icon = "shopping-cart"
 
 }),
 
 Setting = v15:AddTab({
 
 Title = "Settings"
+Icon = "settings"
 
 }),
 
 Status = v15:AddTab({
 
 Title = "Webhook Server"
+Icon = "database"
 
 }),
 
 Stats = v15:AddTab({
 
 Title = "Stats"
+Icon = "chart-no-axes-combined"
 
 }),
 
 Player = v15:AddTab({
 
-Title = "Players Settings"
+Title = "Combat Players"
+Icon = "user-cog"
 
 }),
 
 Teleport = v15:AddTab({
 
 Title = "Teleport Sea"
+Icon = "waves"
 
 }),
 
@@ -705,30 +714,35 @@ Title = "Fake Fun Level"
 Fruit = v15:AddTab({
 
 Title = "ESP & Fruits"
+Icon = "eye"
 
 }),
 
 Raid = v15:AddTab({
 
 Title = "Raids"
+Icon = "user-round-check"
 
 }),
 
 Race = v15:AddTab({
 
 Title = "Race V4"
+Icon = "moon"
 
 }),
 
 Shop = v15:AddTab({
 
 Title = "Shop"
+Icon = "shopping-cart"
 
 }),
 
 Misc = v15:AddTab({
 
 Title = "Miscellaneous"
+Icon = "shield-alert"
 
 })
 
@@ -16775,37 +16789,6 @@ end
 
 end);
 
--- Automatic Lever Pull
-local PullLeverToggle = v16.Race:AddToggle("PullLeverToggle", {
-    Title = "Pull Lever",
-    Default = false
-})
-
-PullLeverToggle:OnChanged(function(state)
-    _G.PullLeverEnabled = state
-    if state then
-        PullLever()
-    end
-end)
-
-function PullLever()
-    while _G.PullLeverEnabled do
-        if (L_30_.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).Magnitude > 2000 then
-            TweenTemple()
-        end
-
-        TP(game:GetService("Workspace").Map["Temple of Time"].Lever.Part.CFrame)
-
-        for _, v in pairs(game:GetService("Workspace").Map["Temple of Time"].Lever:GetDescendants()) do
-            if v:IsA("ProximityPrompt") then
-                fireproximityprompt(v)
-            end
-        end
-
-        wait(1) -- Prevent spamming
-    end
-end
-
 
 v17.ToggleUpgrade:SetValue(false);
 
@@ -18921,25 +18904,6 @@ spawn(function()
     end
 end)
 
--- TP Ancient
-local AncientClockToggle = v16.Race:AddToggle("AncientClockToggle", {
-    Title = "Ancient Clock",
-    Default = false
-})
-
-AncientClockToggle:OnChanged(function(state)
-    _G.AncientClockEnabled = state
-end)
-
-function AncientClock()
-    if not _G.AncientClockEnabled then return end -- Check toggle state
-
-    for L_158_forvar0, L_159_forvar1 in next, workspace:GetDescendants() do
-        if L_159_forvar1.Name == "Prompt" then
-            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = L_159_forvar1.CFrame
-        end
-    end
-end
 
 
 v14:Notify({
